@@ -1,0 +1,29 @@
+[
+    {
+        "Title":"Select Show",
+        "EpCount": 0,
+        "EpLengthMin": 0,
+        "EpLengthMax": 0,
+        "runtime": 0,
+        "useRuntime": false,
+        "imagePath": "https://i.imgur.com/ZXcj6co.jpg"
+    },
+    {
+        "Title":"Squid Game",
+        "EpCount": 9,
+        "EpLengthMin": 32,
+        "EpLengthMax": 44,
+        "runtime": 485,
+        "useRuntime": true,
+        "imagePath": "https://i.imgur.com/AIEzuvC.jpg"
+    },
+    {
+        "Title":"Arcane",
+        "EpCount": 9,
+        "EpLengthMin": 39,
+        "EpLengthMax": 44,
+        "runtime": 360,
+        "useRuntime": false,
+        "imagePath": "https://i.imgur.com/ZF1AnTb.jpg"
+    }
+]
