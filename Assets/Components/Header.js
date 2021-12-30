@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import LogoMini from "./Assets/LogoMini";
+import LogoMini from "../Images/LogoMini";
 
 const Header = () =>{
     return(

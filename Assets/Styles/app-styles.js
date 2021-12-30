@@ -43,17 +43,14 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     transform: [{ translateY: -30 }]
   },
-  image: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    width: null,
-    resizeMode: 'contain',
-    height: 140,
-  },
 
+  // Text stuff
   answerText: {
     fontFamily: 'Jost',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontWeight: '600',
+    fontSize:16,
+    color:'#000'
   },
   subHeading: {
     color: '#fff',
@@ -77,5 +74,14 @@ export const styles = StyleSheet.create({
     color: '#fff',
     alignSelf: 'center',
     fontFamily: 'Poppins-SemiBold',
+  },
+
+  // Other
+  image: {
+    backgroundColor: '#000',
+    borderRadius: 20,
+    width: null,
+    resizeMode: 'contain',
+    height: 140,
   },
 });

@@ -3,10 +3,11 @@ import { Picker } from "@react-native-picker/picker";
 import { View, Text, Image, TextInput, TouchableHighlight} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
-import DayButton from "./DayButton";
-import Header from "./Header";
-import TimeDisplay from "./TimeDisplay"
-import { styles } from "./styles";
+import DayButton from "./Assets/Components/DayButton";
+import Header from "./Assets/Components/Header";
+import TimeDisplay from "./Assets/Components/TimeDisplay"
+import { styles } from "./Assets/Styles/app-styles";
+import Instructions from "./Assets/Components/Instructions";
 
 const days = new Map([
   ['M', Boolean(false)],
@@ -19,7 +20,7 @@ const days = new Map([
 ])
 
 export default App = () => {
-  const shows = require('./showData.json');
+  const shows = require('./Assets/Data/ShowData.json');
 
   // User Input
   const [availableDays, setAvailableDays] = useState(0);
@@ -49,30 +50,22 @@ export default App = () => {
   }
   const handleOnPressExtra = (day) =>{
     // Switches boolean
-    if (days.get(day) == Boolean(true)){
+    if (days.get(day) == Boolean(true)) 
       days.set(day, Boolean(false))
-    }
-    else {
+    else 
       days.set(day, Boolean(true))
-    }
 
     // Gets day count
     getDays();
   }
 
+  // Formula for calculating the days
   const calculate = () => {
     let runTimeMinutes = (show.useRuntime)? show.runtime : 
       ((show.EpLengthMax + show.EpLengthMin) / 2) * show.EpCount; // Approximates runtime
-    
-      console.log("Available Days: " + availableDays);
-      console.log("RunTimeMinutes: " + runTimeMinutes);
-      console.log("Available Hours: " + availableHours);
-    if (runTimeMinutes <= 0 || availableDays <= 0 || availableHours <= 0){
-      
 
-      console.log("Cannot calculate");
-      return;
-    }
+    // Guard for invalid data
+    if (runTimeMinutes <= 0 || availableDays <= 0 || availableHours <= 0) return;
     
     let minimumDays = Math.ceil((runTimeMinutes / 60) / availableHours);
     console.log("Minimum Days: " + minimumDays);
@@ -84,6 +77,7 @@ export default App = () => {
 
   return(
     <>
+    <Instructions />
     <LinearGradient colors={['#000000', '#221F1F', '#221F1F']} locations={[0, 0.3, 1]} style={styles.background}>
     <Header/>
     <View style={styles.container}>
@@ -150,4 +144,3 @@ export default App = () => {
     </>
   )
 }
-
