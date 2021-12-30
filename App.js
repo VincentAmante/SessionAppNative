@@ -43,6 +43,7 @@ export default App = () => {
 
   const handleShowSelect = (show) => {
     setShow(show);
+    setImagePath(show.imagePath);
   }
   const handleOnPressExtra = (day) =>{
     // Switches boolean
@@ -74,37 +75,49 @@ export default App = () => {
               return <Picker.Item key={index} label = {show.Title} value={show} />
             })}
         </Picker>
-        <Image height={130} style={styles.image} resizeMethod='resize' resizeMode='cover' source={{uri: imagePath}} />
+        <Image  style={styles.image} resizeMethod='resize' resizeMode='cover' source={{uri: imagePath}} />
       </View>
 
       {/** Days Selection */}
       <View style={styles.partContainer}>
         <Text style={styles.subHeading}>Days you can watch</Text>
-        <View style={styles.daysContainer}>
-          <DayButton label='M' onPressExtra={() => handleOnPressExtra('M')}></DayButton>
-          <DayButton label='T' onPressExtra={() => handleOnPressExtra('T')}></DayButton>
-          <DayButton label='W' onPressExtra={() => handleOnPressExtra('W')}></DayButton>
-          <DayButton label='Th' onPressExtra={() => handleOnPressExtra('Th')}></DayButton>
-          <DayButton label='F' onPressExtra={() => handleOnPressExtra('F')}></DayButton>
-          <DayButton label='S' onPressExtra={() => handleOnPressExtra('S')}></DayButton>
-          <DayButton label='Su' onPressExtra={() => handleOnPressExtra('Su')}></DayButton>
+        <View style={styles.partContainer}>
+          <View style={styles.daysContainer}>
+            <DayButton label='M' onPressExtra={() => handleOnPressExtra('M')}></DayButton>
+            <DayButton label='T' onPressExtra={() => handleOnPressExtra('T')}></DayButton>
+            <DayButton label='W' onPressExtra={() => handleOnPressExtra('W')}></DayButton>
+            <DayButton label='Th' onPressExtra={() => handleOnPressExtra('Th')}></DayButton>
+            <DayButton label='F' onPressExtra={() => handleOnPressExtra('F')}></DayButton>
+            <DayButton label='S' onPressExtra={() => handleOnPressExtra('S')}></DayButton>
+            <DayButton label='Su' onPressExtra={() => handleOnPressExtra('Su')}></DayButton>
+          </View>
         </View>
       </View>
 
       {/** Hours available per day */}
+      
       <View style={styles.partContainer}>
-        <Text style={styles.subHeading}>Hours available per day</Text>
-        <TextInput onValueChange={setAvailableHours} style={styles.textInput} placeholder="Hours" keyboardType='numeric'></TextInput>
-      </View>
+        
+      <Text style={styles.subHeading}>Hours available per day</Text>
+        <TextInput 
+        onValueChange={setAvailableHours} 
+        style={styles.textInput}
+         placeholder="Hours" 
+         placeholderTextColor='#ccc'
+         keyboardType='numeric' 
+         textAlign='center'></TextInput>
+        </View>
     </View>
 
     {/** Displays result */}
-    <View style={styles.answerContainer}>
-      <View>
-        <TouchableHighlight title='Calculate' style={styles.button}><Text style={styles.buttonText}>Calculate</Text></TouchableHighlight>
+    <View style={styles.answerBox}>
+    <TouchableHighlight title='Calculate' style={styles.button}><Text style={styles.buttonText}>Calculate</Text></TouchableHighlight>
+      <View style={styles.answerContainer}>
+        <Text style={styles.answerText}>Once started, you'll finish the show in..</Text>
+        <View>
+          <TimeDisplay label="Days" time={resultDays}></TimeDisplay>
+        </View>
       </View>
-      <Text style={styles.text}>Once started, you'll finish the show in..</Text>
-      <TimeDisplay label="Days" time={resultDays}></TimeDisplay>
     </View>
     </LinearGradient>
     </>
@@ -115,22 +128,32 @@ const styles = StyleSheet.create({
   // Containers
   background:{
     flex:1,
-    paddingHorizontal:30,
+    paddingHorizontal:20,
   },
   container:{ 
-    flex:1,
+    flex:.8,
+    paddingTop:20,
+    justifyContent:'center'
   },
   partContainer:{
-
+    marginBottom:20,
   },
   daysContainer:{
     flex:1,
-    flexDirection:'row'
+    flexDirection:'row',
   },
-  answerContainer:{
-    backgroundColor:'#fff',
+  answerBox:{
+    flex:.4,
     borderTopEndRadius:20,
     borderTopStartRadius:20,
+    backgroundColor:'#fff',
+    
+    paddingBottom:30,
+  },
+  answerContainer:{
+    flex:1, 
+    alignSelf:'stretch',
+    paddingBottom:50,
   },
   button:{
     backgroundColor:'#000',
@@ -138,7 +161,6 @@ const styles = StyleSheet.create({
     alignSelf:'flex-start',
     padding:20,
     paddingHorizontal:40,
-    
     borderRadius:30,
     transform:[{translateY:-30}]
   },
@@ -147,20 +169,30 @@ const styles = StyleSheet.create({
     borderRadius:20,
     width: null,
     resizeMode: 'contain',
-    height: 130,
+    height: 140,
   },
 
-  text:{
+  answerText:{
     fontFamily:'Jost',
+    alignSelf:'center'
   },
   subHeading:{
-
+    color:'#fff',
+    fontFamily:'Jost',
+    marginTop:10,
+    fontSize:16,
+    marginBottom:5,
   },
   pickerText:{
-
+    color:'#fff',
+    fontFamily:'Jost',
   },
   textInput:{
-
+    backgroundColor:'#575453',
+    color:'#fff',
+    fontFamily:'Jost',
+    borderRadius:30,
+    fontSize:20,
   },
   buttonText:{
     color:'#fff',
