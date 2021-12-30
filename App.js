@@ -10,7 +10,7 @@ import TimeDisplay from "./TimeDisplay"
 const days = new Map([
   ['M', Boolean(false)],
   ['T', Boolean(false)],
-  ['M', Boolean(false)],
+  ['W', Boolean(false)],
   ['Th', Boolean(false)],
   ['F', Boolean(false)],
   ['S', Boolean(false)],
@@ -20,25 +20,26 @@ const days = new Map([
 export default App = () => {
   const shows = require('./showData.json');
 
+  // User Input
   const [availableDays, setAvailableDays] = useState(0);
   const [availableHours, setAvailableHours] = useState(0);
-  const [resultDays, setResultDays] = useState(0);
 
+  // Selected Show
   const [show, setShow] = useState(shows[0]);
   const [imagePath, setImagePath] = useState(show.imagePath)
-  
-  const [daysAvailable, setDaysAvailable] = useState(0);
+
+  // Result
+  const [resultDays, setResultDays] = useState(0);
   
   const getDays = () => {
     setAvailableDays(0);
 
-    days.forEach(day => {
-      if (day == Boolean(true)) {
-        setDaysAvailable((aDays) => aDays + 1)
+    days.forEach((day, dayName) => {
+      if (days.get(dayName) == Boolean(true)) {
+        console.log(dayName + ": " + " is true");
+        setAvailableDays(aDays => aDays + 1)
       }
     });
-
-    console.log("Days Available: " + availableDays);
   }
 
   const handleShowSelect = (show) => {
@@ -56,6 +57,28 @@ export default App = () => {
 
     // Gets day count
     getDays();
+  }
+
+  const calculate = () => {
+    let runTimeMinutes = (show.useRuntime)? show.runtime : 
+      ((show.EpLengthMax + show.EpLengthMin) / 2) * show.EpCount; // Approximates runtime
+    
+      console.log("Available Days: " + availableDays);
+      console.log("RunTimeMinutes: " + runTimeMinutes);
+      console.log("Available Hours: " + availableHours);
+    if (runTimeMinutes <= 0 || availableDays <= 0 || availableHours <= 0){
+      
+
+      console.log("Cannot calculate");
+      return;
+    }
+    
+    let minimumDays = Math.ceil((runTimeMinutes / 60) / availableHours);
+    console.log("Minimum Days: " + minimumDays);
+
+    let totalDays = minimumDays + ((7 - availableDays) * (minimumDays - availableDays));
+
+    setResultDays(totalDays);
   }
 
   return(
@@ -100,7 +123,7 @@ export default App = () => {
         
       <Text style={styles.subHeading}>Hours available per day</Text>
         <TextInput 
-        onValueChange={setAvailableHours} 
+        onChangeText={setAvailableHours}
         style={styles.textInput}
          placeholder="Hours" 
          placeholderTextColor='#ccc'
@@ -111,7 +134,10 @@ export default App = () => {
 
     {/** Displays result */}
     <View style={styles.answerBox}>
-    <TouchableHighlight title='Calculate' style={styles.button}><Text style={styles.buttonText}>Calculate</Text></TouchableHighlight>
+    <TouchableHighlight 
+      title='Calculate' 
+      style={styles.button}
+      onPress={calculate}><Text style={styles.buttonText}>Calculate</Text></TouchableHighlight>
       <View style={styles.answerContainer}>
         <Text style={styles.answerText}>Once started, you'll finish the show in..</Text>
         <View>
@@ -131,9 +157,10 @@ const styles = StyleSheet.create({
     paddingHorizontal:20,
   },
   container:{ 
-    flex:.8,
+    flex:1,
     paddingTop:20,
-    justifyContent:'center'
+    justifyContent:'center',
+    marginBottom:20,
   },
   partContainer:{
     marginBottom:20,
@@ -154,12 +181,14 @@ const styles = StyleSheet.create({
     flex:1, 
     alignSelf:'stretch',
     paddingBottom:50,
+    
+    transform:[{translateY:-10}]
   },
   button:{
-    backgroundColor:'#000',
+    backgroundColor:'#E50914',
     marginHorizontal:20,
     alignSelf:'flex-start',
-    padding:20,
+    padding:15,
     paddingHorizontal:40,
     borderRadius:30,
     transform:[{translateY:-30}]
