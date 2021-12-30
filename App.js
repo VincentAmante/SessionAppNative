@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Picker } from "@react-native-picker/picker";
 import { View, Text, Image, TextInput, TouchableHighlight} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import SplashScreen from "react-native-splash-screen";
 
 import DayButton from "./Assets/Components/DayButton";
 import Header from "./Assets/Components/Header";
@@ -20,6 +21,9 @@ const days = new Map([
 ])
 
 export default App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  });
   const shows = require('./Assets/Data/ShowData.json');
 
   // User Input
