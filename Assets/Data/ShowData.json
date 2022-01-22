@@ -23,7 +23,43 @@
         "EpLengthMin": 39,
         "EpLengthMax": 44,
         "runtime": 360,
-        "useRuntime": false,
+        "useRuntime": true,
+        "imagePath": "https://i.imgur.com/ZF1AnTb.jpg"
+    },
+    {
+        "Title":"Friends",
+        "EpCount": 0,
+        "EpLengthMin": 0,
+        "EpLengthMax": 0,
+        "runtime": 5100,
+        "useRuntime": true,
+        "imagePath": "https://i.imgur.com/ZF1AnTb.jpg"
+    },
+    {
+        "Title":"Gravity Falls",
+        "EpCount": 0,
+        "EpLengthMin": 0,
+        "EpLengthMax": 0,
+        "runtime": 4080,
+        "useRuntime": true,
+        "imagePath": "https://i.imgur.com/ZF1AnTb.jpg"
+    },
+    {
+        "Title":"Wanda Vision",
+        "EpCount": 0,
+        "EpLengthMin": 0,
+        "EpLengthMax": 0,
+        "runtime": 68,
+        "useRuntime": true,
+        "imagePath": "https://i.imgur.com/ZF1AnTb.jpg"
+    },
+    {
+        "Title":"Blue Period",
+        "EpCount": 0,
+        "EpLengthMin": 0,
+        "EpLengthMax": 0,
+        "runtime": 288,
+        "useRuntime": true,
         "imagePath": "https://i.imgur.com/ZF1AnTb.jpg"
     }
 ]

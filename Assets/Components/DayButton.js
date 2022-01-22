@@ -29,7 +29,7 @@ const DayButton = (props) => {
     }
 
     return(
-    <TouchableOpacity onPress={handleOnPress} style={style}>
+    <TouchableOpacity {...props} onPress={handleOnPress} style={style}>
         <Text style={styleText}>{props.label}</Text>
     </TouchableOpacity>)
 }
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     dayButton_Text:{
-        color:'#000',
+        color:'#555',
         textAlign:'center',
         textAlignVertical:'center',
         fontFamily:'Jost',

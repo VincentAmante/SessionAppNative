@@ -9,15 +9,16 @@ import Header from "./Assets/Components/Header";
 import TimeDisplay from "./Assets/Components/TimeDisplay"
 import { styles } from "./Assets/Styles/app-styles";
 import Instructions from "./Assets/Components/Instructions";
-
+  
+// Days of the week
 const days = new Map([
-  ['M', Boolean(false)],
-  ['T', Boolean(false)],
-  ['W', Boolean(false)],
-  ['Th', Boolean(false)],
-  ['F', Boolean(false)],
-  ['S', Boolean(false)],
-  ['Su', Boolean(false)],
+  [0, Boolean(false)],
+  [1, Boolean(false)],
+  [2, Boolean(false)],
+  [3, Boolean(false)],
+  [4, Boolean(false)],
+  [5, Boolean(false)],
+  [6, Boolean(false)],
 ])
 
 export default App = () => {
@@ -29,6 +30,7 @@ export default App = () => {
   // User Input
   const [availableDays, setAvailableDays] = useState(0);
   const [availableHours, setAvailableHours] = useState(0);
+  const [startDay , setStartDay] = useState(1);
 
   // Selected Show
   const [show, setShow] = useState(shows[0]);
@@ -38,43 +40,58 @@ export default App = () => {
   const [resultDays, setResultDays] = useState(0);
   
   const getDays = () => {
+    
     setAvailableDays(0);
 
     days.forEach((day, dayName) => {
       if (days.get(dayName) == Boolean(true)) {
-        console.log(dayName + ": " + " is true");
         setAvailableDays(aDays => aDays + 1)
       }
     });
   }
 
   const handleShowSelect = (show) => {
+    console.log("Changed Show");
     setShow(show);
     setImagePath(show.imagePath);
   }
+
   const handleOnPressExtra = (day) =>{
     // Switches boolean
-    if (days.get(day) == Boolean(true)) 
-      days.set(day, Boolean(false))
-    else 
-      days.set(day, Boolean(true))
-
+    if (days.get(day) == Boolean(true)){
+      days.set(day, Boolean(false));
+    } 
+    else {
+      days.set(day, Boolean(true));
+    }
     // Gets day count
     getDays();
   }
 
+  const canStart = (day) => {
+    console.log(days.get(day) == Boolean(true))
+    return (days.get(day) == Boolean(true));
+  }
+
   // Formula for calculating the days
   const calculate = () => {
+    // Acquires runtime
     let runTimeMinutes = (show.useRuntime)? show.runtime : 
       ((show.EpLengthMax + show.EpLengthMin) / 2) * show.EpCount; // Approximates runtime
-
-    // Guard for invalid data
-    if (runTimeMinutes <= 0 || availableDays <= 0 || availableHours <= 0) return;
     
-    let minimumDays = Math.ceil((runTimeMinutes / 60) / availableHours);
-    console.log("Minimum Days: " + minimumDays);
+  // Guard for invalid data
+    if (runTimeMinutes <= 0 || availableDays <= 0 || availableHours <= 0) return;
 
-    let totalDays = minimumDays + ((7 - availableDays) * (minimumDays - availableDays));
+    let minimumDays = Math.ceil((runTimeMinutes / 60) / availableHours);
+
+    let extraDays = 0;
+    // Calculates Extra Days
+    // TODO: Add logic for spaces between days
+    if (minimumDays > availableDays){
+      extraDays = (7 - availableDays) * (minimumDays - availableDays)
+    };
+
+    let totalDays = minimumDays + extraDays;
 
     setResultDays(totalDays);
   }
@@ -105,13 +122,13 @@ export default App = () => {
         <Text style={styles.subHeading}>Days you can watch</Text>
         <View style={styles.partContainer}>
           <View style={styles.daysContainer}>
-            <DayButton label='M' onPressExtra={() => handleOnPressExtra('M')}></DayButton>
-            <DayButton label='T' onPressExtra={() => handleOnPressExtra('T')}></DayButton>
-            <DayButton label='W' onPressExtra={() => handleOnPressExtra('W')}></DayButton>
-            <DayButton label='Th' onPressExtra={() => handleOnPressExtra('Th')}></DayButton>
-            <DayButton label='F' onPressExtra={() => handleOnPressExtra('F')}></DayButton>
-            <DayButton label='S' onPressExtra={() => handleOnPressExtra('S')}></DayButton>
-            <DayButton label='Su' onPressExtra={() => handleOnPressExtra('Su')}></DayButton>
+            <DayButton label='M' onPressExtra={() => handleOnPressExtra(0)}></DayButton>
+            <DayButton label='T' onPressExtra={() => handleOnPressExtra(1)}></DayButton>
+            <DayButton label='W' onPressExtra={() => handleOnPressExtra(2)}></DayButton>
+            <DayButton label='Th' onPressExtra={() => handleOnPressExtra(3)}></DayButton>
+            <DayButton label='F' onPressExtra={() => handleOnPressExtra(4)}></DayButton>
+            <DayButton label='S' onPressExtra={() => handleOnPressExtra(5)}></DayButton>
+            <DayButton label='Su' onPressExtra={() => handleOnPressExtra(6)}></DayButton>
           </View>
         </View>
       </View>

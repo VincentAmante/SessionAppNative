@@ -13,6 +13,7 @@ const Instructions = (props) => {
         onRequestClose={() => {
             setModalVisible(!modalVisible);
         }}>
+            {/** Modal Contents */}
             <View style={styles.container}>
                 <View style={styles.boxContainer}>
                     <View style={styles.header}>
